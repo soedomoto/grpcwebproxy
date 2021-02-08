@@ -1,0 +1,5 @@
+server:
+  port: 8080
+proxy:
+  backend-address: localhost:9090
+  request-timeout: 3600 #seconds
