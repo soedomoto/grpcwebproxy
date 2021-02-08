@@ -19,6 +19,8 @@ public class Bootstrap {
     private String[] addresses;
     @Value("${proxy.request-timeout}")
     String requestTimeout = "0";
+    @Value("${server.port}")
+    String insecurePort = "8080";
 
     @Bean
     Channels channels() {
@@ -28,6 +30,7 @@ public class Bootstrap {
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+        tomcat.setPort(Integer.parseInt(insecurePort));
         tomcat.addConnectorCustomizers(connector -> {
             ((AbstractProtocol) connector.getProtocolHandler()).setKeepAliveTimeout(Integer.parseInt(requestTimeout) * 1000);
         });
